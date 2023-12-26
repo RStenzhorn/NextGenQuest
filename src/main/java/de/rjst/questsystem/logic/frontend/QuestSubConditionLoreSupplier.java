@@ -3,8 +3,8 @@ package de.rjst.questsystem.logic.frontend;
 import de.rjst.questsystem.database.entity.config.ConditionSubConditionConfig;
 import de.rjst.questsystem.database.entity.config.QuestSubConditionConfigEntity;
 import de.rjst.questsystem.model.enums.ConditionType;
-import de.rjst.questsystem.model.enums.MessageType;
-import de.rjst.questsystem.model.enums.Placeholder;
+import de.rjst.questsystem.setting.NgqMessageType;
+import de.rjst.questsystem.setting.NgqPlaceholder;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +22,7 @@ import java.util.function.BiFunction;
 public class QuestSubConditionLoreSupplier implements BiFunction<Locale, List<ConditionSubConditionConfig>, List<Component>> {
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
     @Qualifier("replacePlaceholderFunction")
     private final BiFunction<String, Map<String, String>, Component> replacePlaceHolderFunction;
@@ -33,11 +33,11 @@ public class QuestSubConditionLoreSupplier implements BiFunction<Locale, List<Co
         for (final ConditionSubConditionConfig conditionSubConditionConfig : conditionSubConditionConfigs) {
             final QuestSubConditionConfigEntity subConditionConfig = conditionSubConditionConfig.getQuestSubConditionConfig();
             final ConditionType subConditionType = ConditionType.valueOf(subConditionConfig.getConditionType());
-            final MessageType messageType = subConditionType.getMessageType();
-            final String msg = messageSupplier.apply(messageType, locale);
+            final NgqMessageType ngqMessageType = subConditionType.getNgqMessageType();
+            final String msg = messageSupplier.apply(ngqMessageType, locale);
             final Component message = replacePlaceHolderFunction.apply(msg,
                     Map.of(
-                            Placeholder.TYPE, subConditionType.getTranslateKey(subConditionConfig.getParameter())
+                            NgqPlaceholder.TYPE, subConditionType.getTranslateKey(subConditionConfig.getParameter())
                     ));
             result.add(message);
         }

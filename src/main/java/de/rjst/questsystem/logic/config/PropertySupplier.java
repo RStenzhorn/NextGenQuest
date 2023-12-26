@@ -1,12 +1,12 @@
 package de.rjst.questsystem.logic.config;
 
 
-import de.rjst.questsystem.model.enums.Property;
+import de.rjst.questsystem.setting.NgqProperty;
 
 @FunctionalInterface
 public interface PropertySupplier {
 
-    <T> T apply(Property property, Class<T> type);
+    <T> T apply(NgqProperty ngqProperty, Class<T> type);
 
 }
 

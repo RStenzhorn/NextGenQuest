@@ -3,8 +3,8 @@ package de.rjst.questsystem.logic.frontend;
 import de.rjst.questsystem.database.entity.QuestConditionEntity;
 import de.rjst.questsystem.database.entity.QuestEntity;
 import de.rjst.questsystem.database.entity.config.QuestConfigEntity;
-import de.rjst.questsystem.model.enums.MessageType;
-import de.rjst.questsystem.model.enums.Placeholder;
+import de.rjst.questsystem.setting.NgqMessageType;
+import de.rjst.questsystem.setting.NgqPlaceholder;
 import de.rjst.questsystem.util.FrontendUtil;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.function.BiFunction;
 
-import static de.rjst.questsystem.model.enums.MessageType.QUEST_NAME;
+import static de.rjst.questsystem.setting.NgqMessageType.QUEST_NAME;
 
 @RequiredArgsConstructor
 @Service("questItemStackMapper")
 public class QuestItemStackMapper implements BiFunction<Locale, QuestEntity, ItemStack> {
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
     @Qualifier("replacePlaceholderFunction")
     private final BiFunction<String, Map<String, String>, Component> replacePlaceHolderFunction;
@@ -46,6 +46,6 @@ public class QuestItemStackMapper implements BiFunction<Locale, QuestEntity, Ite
 
     private Component getItemName(final Locale locale, final String questName) {
         final String msg = messageSupplier.apply(QUEST_NAME, locale);
-        return replacePlaceHolderFunction.apply(msg, Map.of(Placeholder.ITEM_NAME, questName));
+        return replacePlaceHolderFunction.apply(msg, Map.of(NgqPlaceholder.ITEM_NAME, questName));
     }
 }

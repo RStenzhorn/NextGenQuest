@@ -1,6 +1,6 @@
-name: QuestSystem
+name: NextGenQuest
 version: '${project.version}'
-main: de.rjst.questsystem.QuestSystem
+main: de.rjst.questsystem.NextGenQuest
 api-version: '1.20'
 author: RStenzhorn
 website: https://github.com/RStenzhorn

@@ -3,8 +3,8 @@ package de.rjst.questsystem.logic.frontend.shop;
 import de.rjst.questsystem.database.entity.RewardShopItemEntity;
 import de.rjst.questsystem.model.ItemBuild;
 import de.rjst.questsystem.model.ItemBuildRequest;
-import de.rjst.questsystem.model.enums.MessageType;
-import de.rjst.questsystem.model.enums.Placeholder;
+import de.rjst.questsystem.setting.NgqMessageType;
+import de.rjst.questsystem.setting.NgqPlaceholder;
 import de.rjst.questsystem.util.ItemStackParser;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.inventory.ItemStack;
@@ -41,21 +41,21 @@ public class RewardShopItemMapper implements BiFunction<Locale, RewardShopItemEn
         if (entity.getName() != null) {
             request = ItemBuild.builder()
                     .baseItem(result)
-                    .itemName(MessageType.INVENTORY_ITEM_REWARD)
-                    .description(MessageType.INVENTORY_REWARD_DESCRIPTION)
+                    .itemName(NgqMessageType.INVENTORY_ITEM_REWARD)
+                    .description(NgqMessageType.INVENTORY_REWARD_DESCRIPTION)
                     .locale(locale)
                     .placeholder(Map.of(
-                            Placeholder.ITEM_NAME, entity.getName(),
-                            Placeholder.PRICE, currencyPlaceHolderFunction.apply(entity.getPrice())
+                            NgqPlaceholder.ITEM_NAME, entity.getName(),
+                            NgqPlaceholder.PRICE, currencyPlaceHolderFunction.apply(entity.getPrice())
                     ))
                     .build();
         } else {
             request = ItemBuild.builder()
                     .baseItem(result)
-                    .description(MessageType.INVENTORY_REWARD_DESCRIPTION)
+                    .description(NgqMessageType.INVENTORY_REWARD_DESCRIPTION)
                     .locale(locale)
                     .placeholder(Map.of(
-                            Placeholder.PRICE, currencyPlaceHolderFunction.apply(entity.getPrice())
+                            NgqPlaceholder.PRICE, currencyPlaceHolderFunction.apply(entity.getPrice())
                     ))
                     .build();
         }

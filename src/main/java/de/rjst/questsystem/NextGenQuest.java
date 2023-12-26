@@ -1,7 +1,7 @@
 package de.rjst.questsystem;
 
-import de.rjst.questsystem.model.enums.Property;
-import de.rjst.questsystem.model.enums.MessageType;
+import de.rjst.questsystem.setting.NgqProperty;
+import de.rjst.questsystem.setting.NgqMessageType;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,10 +16,10 @@ import java.io.File;
 import java.util.*;
 
 @Slf4j
-public class QuestSystem extends JavaPlugin {
+public class NextGenQuest extends JavaPlugin {
 
     @Getter
-    private static QuestSystem instance;
+    private static NextGenQuest instance;
 
     private static ConfigurableApplicationContext applicationContext;
 
@@ -29,7 +29,7 @@ public class QuestSystem extends JavaPlugin {
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
         setupConfig();
         applicationContext =
-                new SpringApplicationBuilder(QuestSystemSpringBoot.class)
+                new SpringApplicationBuilder(NextGenQuestSpringBoot.class)
                         .bannerMode(Banner.Mode.OFF)
                         .properties(loadConfig())
                         .initializers(appContext -> appContext.setClassLoader(getClassLoader()))
@@ -49,8 +49,8 @@ public class QuestSystem extends JavaPlugin {
         final FileConfiguration config = getConfig();
 
         config.options().setHeader(List.of(getName() + " by RStenzhorn"));
-        for (final Property property : Property.values()) {
-            config.addDefault(property.getPath(), property.getDefaultValue());
+        for (final NgqProperty ngqProperty : NgqProperty.values()) {
+            config.addDefault(ngqProperty.getPath(), ngqProperty.getDefaultValue());
         }
 
         setupMessageConfig(config);
@@ -59,9 +59,9 @@ public class QuestSystem extends JavaPlugin {
     }
 
     private static void setupMessageConfig(final FileConfiguration config) {
-        for (final MessageType messageType : MessageType.values()) {
-            config.addDefault(messageType.getPath(Locale.ENGLISH), messageType.getEnglish());
-            config.addDefault(messageType.getPath(Locale.GERMAN), messageType.getGerman());
+        for (final NgqMessageType ngqMessageType : NgqMessageType.values()) {
+            config.addDefault(ngqMessageType.getPath(Locale.ENGLISH), ngqMessageType.getEnglish());
+            config.addDefault(ngqMessageType.getPath(Locale.GERMAN), ngqMessageType.getGerman());
         }
     }
 

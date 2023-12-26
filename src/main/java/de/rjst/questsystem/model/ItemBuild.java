@@ -1,6 +1,6 @@
 package de.rjst.questsystem.model;
 
-import de.rjst.questsystem.model.enums.MessageType;
+import de.rjst.questsystem.setting.NgqMessageType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class ItemBuild implements ItemBuildRequest {
 
     private Locale locale;
     private ItemStack baseItem;
-    private MessageType itemName;
-    private MessageType description;
+    private NgqMessageType itemName;
+    private NgqMessageType description;
     private Map<String, String> placeholder;
 }

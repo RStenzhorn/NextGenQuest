@@ -5,9 +5,9 @@ import de.rjst.questsystem.logic.config.PropertySupplier;
 import de.rjst.questsystem.model.ItemBuild;
 import de.rjst.questsystem.model.ItemBuildRequest;
 import de.rjst.questsystem.model.button.ButtonImpl;
-import de.rjst.questsystem.model.enums.MessageType;
-import de.rjst.questsystem.model.enums.Placeholder;
-import de.rjst.questsystem.model.enums.Property;
+import de.rjst.questsystem.setting.NgqMessageType;
+import de.rjst.questsystem.setting.NgqPlaceholder;
+import de.rjst.questsystem.setting.NgqProperty;
 import de.rjst.questsystem.model.gui.CustomGui;
 import de.rjst.questsystem.model.gui.CustomGuiImpl;
 import de.rjst.questsystem.util.Heads;
@@ -36,7 +36,7 @@ import java.util.function.Function;
 public class ShopRequestConsumer implements BiConsumer<Player, RewardShopItemEntity> {
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
     @Qualifier("checkQuestRewardFunction")
     private final BiFunction<UUID, BigInteger, Boolean> checkQuestRewardFunction;
@@ -56,7 +56,7 @@ public class ShopRequestConsumer implements BiConsumer<Player, RewardShopItemEnt
     public void accept(final @NotNull Player player, final @NotNull RewardShopItemEntity entity) {
         final Locale locale = player.locale();
         final UUID uuid = player.getUniqueId();
-        final String inv = messageSupplier.apply(MessageType.INVENTORY_REWARD_BUY_REQUEST, locale);
+        final String inv = messageSupplier.apply(NgqMessageType.INVENTORY_REWARD_BUY_REQUEST, locale);
         final Component invNameComponent = PaperUtil.getMessage(inv);
 
         if (checkQuestRewardFunction.apply(uuid, entity.getPrice())) {
@@ -67,9 +67,9 @@ public class ShopRequestConsumer implements BiConsumer<Player, RewardShopItemEnt
             customGui.setButton(6,1,new ButtonImpl(no, e -> player.closeInventory()));
             player.openInventory(customGui.getInventory());
         } else {
-            final String msg = messageSupplier.apply(MessageType.REWARD_NOT_ENOUGH, locale);
+            final String msg = messageSupplier.apply(NgqMessageType.REWARD_NOT_ENOUGH, locale);
             final Component message = replacePlaceholderFunction.apply(msg, Map.of(
-                    Placeholder.CURRENCY, propertySupplier.apply(Property.CURRENCY_PLURAL, String.class)
+                    NgqPlaceholder.CURRENCY, propertySupplier.apply(NgqProperty.CURRENCY_PLURAL, String.class)
             ));
             player.sendMessage(message);
         }
@@ -79,7 +79,7 @@ public class ShopRequestConsumer implements BiConsumer<Player, RewardShopItemEnt
         return ItemBuild.builder()
                 .baseItem(Heads.YES)
                 .locale(locale)
-                .itemName(MessageType.INVENTORY_YES_BUTTON)
+                .itemName(NgqMessageType.INVENTORY_YES_BUTTON)
                 .placeholder(Map.of())
                 .build();
     }
@@ -88,7 +88,7 @@ public class ShopRequestConsumer implements BiConsumer<Player, RewardShopItemEnt
         return ItemBuild.builder()
                 .baseItem(Heads.NO)
                 .locale(locale)
-                .itemName(MessageType.INVENTORY_NO_BUTTON)
+                .itemName(NgqMessageType.INVENTORY_NO_BUTTON)
                 .placeholder(Map.of())
                 .build();
     }

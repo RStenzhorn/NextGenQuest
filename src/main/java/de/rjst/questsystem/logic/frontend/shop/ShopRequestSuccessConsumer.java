@@ -1,7 +1,7 @@
 package de.rjst.questsystem.logic.frontend.shop;
 
 import de.rjst.questsystem.database.entity.RewardShopItemEntity;
-import de.rjst.questsystem.model.enums.MessageType;
+import de.rjst.questsystem.setting.NgqMessageType;
 import de.rjst.questsystem.model.enums.RewardType;
 import de.rjst.questsystem.util.ItemStackParser;
 import de.rjst.questsystem.util.PaperUtil;
@@ -34,7 +34,7 @@ public class ShopRequestSuccessConsumer implements BiConsumer<Player, RewardShop
     private final BiFunction<UUID, BigInteger, Boolean> removeQuestRewardFunction;
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
     private final ObjectFactory<Economy> economyObjectFactory;
 
@@ -55,7 +55,7 @@ public class ShopRequestSuccessConsumer implements BiConsumer<Player, RewardShop
                 final Server server = Bukkit.getServer();
                 server.dispatchCommand(Bukkit.getConsoleSender(), entity.getCommand());
             }
-            final String msg = messageSupplier.apply(MessageType.REWARD_SUCCESS, locale);
+            final String msg = messageSupplier.apply(NgqMessageType.REWARD_SUCCESS, locale);
             final Component message = PaperUtil.getMessage(msg);
             player.sendMessage(message);
         } else {

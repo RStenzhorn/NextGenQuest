@@ -1,7 +1,7 @@
 package de.rjst.questsystem.logic.frontend;
 
 import de.rjst.questsystem.logic.config.PropertySupplier;
-import de.rjst.questsystem.model.enums.Property;
+import de.rjst.questsystem.setting.NgqProperty;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -22,9 +22,9 @@ public class CurrencyPlaceHolderFunction implements Function<BigInteger, String>
 
         final String currencyName;
         if (BigInteger.ONE.equals(currency)) {
-            currencyName = propertySupplier.apply(Property.CURRENCY_SINGULAR, String.class);
+            currencyName = propertySupplier.apply(NgqProperty.CURRENCY_SINGULAR, String.class);
         } else {
-            currencyName = propertySupplier.apply(Property.CURRENCY_PLURAL, String.class);
+            currencyName = propertySupplier.apply(NgqProperty.CURRENCY_PLURAL, String.class);
         }
         result += " " + currencyName;
 

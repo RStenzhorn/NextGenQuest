@@ -2,7 +2,7 @@ package de.rjst.questsystem.logic.frontend.quest;
 
 import de.rjst.questsystem.model.ItemBuild;
 import de.rjst.questsystem.model.ItemBuildRequest;
-import de.rjst.questsystem.model.enums.MessageType;
+import de.rjst.questsystem.setting.NgqMessageType;
 import de.rjst.questsystem.logic.config.PropertySupplier;
 import de.rjst.questsystem.util.Heads;
 import de.rjst.questsystem.model.button.ButtonImpl;
@@ -40,7 +40,7 @@ public class QuestConsumer implements Consumer<InventoryClickEvent> {
     private final Consumer<InventoryClickEvent> monthlyQuestConsumer;
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
 
     @Qualifier("itemStackFunction")
@@ -50,7 +50,7 @@ public class QuestConsumer implements Consumer<InventoryClickEvent> {
     public void accept(final InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof final Player player) {
             final Locale locale = player.locale();
-            final String baseMessage = messageSupplier.apply(MessageType.INVENTORY_MAIN, locale);
+            final String baseMessage = messageSupplier.apply(NgqMessageType.INVENTORY_MAIN, locale);
             final Component message = PaperUtil.getMessage(baseMessage);
 
             final ItemStack daily = itemStackFunction.apply(getDailyRequest(locale));
@@ -70,7 +70,7 @@ public class QuestConsumer implements Consumer<InventoryClickEvent> {
                 baseItem(Heads.DAILY_QUEST.clone())
                 .locale(locale)
                 .placeholder(Map.of())
-                .itemName(MessageType.INVENTORY_QUESTS_SELECT_DAILY)
+                .itemName(NgqMessageType.INVENTORY_QUESTS_SELECT_DAILY)
                 .build();
     }
 
@@ -79,7 +79,7 @@ public class QuestConsumer implements Consumer<InventoryClickEvent> {
                 baseItem(Heads.WEEKLY_QUEST.clone())
                 .locale(locale)
                 .placeholder(Map.of())
-                .itemName(MessageType.INVENTORY_QUESTS_SELECT_WEEKLY)
+                .itemName(NgqMessageType.INVENTORY_QUESTS_SELECT_WEEKLY)
                 .build();
     }
 
@@ -88,7 +88,7 @@ public class QuestConsumer implements Consumer<InventoryClickEvent> {
                 baseItem(Heads.MONTHLY_QUEST.clone())
                 .locale(locale)
                 .placeholder(Map.of())
-                .itemName(MessageType.INVENTORY_QUESTS_SELECT_MONTHLY)
+                .itemName(NgqMessageType.INVENTORY_QUESTS_SELECT_MONTHLY)
                 .build();
     }
 }

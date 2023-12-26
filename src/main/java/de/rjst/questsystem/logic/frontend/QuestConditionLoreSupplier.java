@@ -4,8 +4,8 @@ import de.rjst.questsystem.database.entity.QuestConditionEntity;
 import de.rjst.questsystem.database.entity.config.ConditionSubConditionConfig;
 import de.rjst.questsystem.database.entity.config.QuestConditionConfigEntity;
 import de.rjst.questsystem.model.enums.ConditionType;
-import de.rjst.questsystem.model.enums.MessageType;
-import de.rjst.questsystem.model.enums.Placeholder;
+import de.rjst.questsystem.setting.NgqMessageType;
+import de.rjst.questsystem.setting.NgqPlaceholder;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +24,7 @@ import java.util.function.BiFunction;
 public class QuestConditionLoreSupplier implements BiFunction<Locale, List<QuestConditionEntity>, List<Component>> {
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
     @Qualifier("replacePlaceholderFunction")
     private final BiFunction<String, Map<String, String>, Component> replacePlaceHolderFunction;
@@ -43,12 +43,12 @@ public class QuestConditionLoreSupplier implements BiFunction<Locale, List<Quest
             final QuestConditionConfigEntity conditionConfig = questCondition.getConditionConfig();
             final BigDecimal goalValue = conditionConfig.getGoalValue();
             final ConditionType conditionType = ConditionType.valueOf(conditionConfig.getConditionType());
-            final String msg = messageSupplier.apply(conditionType.getMessageType(), locale);
+            final String msg = messageSupplier.apply(conditionType.getNgqMessageType(), locale);
             final Component component = replacePlaceHolderFunction.apply(msg,
                     Map.of(
-                            Placeholder.GOAL, ConditionType.formatValue(goalValue),
-                            Placeholder.VALUE, ConditionType.formatValue(currentValue),
-                            Placeholder.TYPE, conditionConfig.getParameter() != null ? conditionType.getTranslateKey(conditionConfig.getParameter()) : ""
+                            NgqPlaceholder.GOAL, ConditionType.formatValue(goalValue),
+                            NgqPlaceholder.VALUE, ConditionType.formatValue(currentValue),
+                            NgqPlaceholder.TYPE, conditionConfig.getParameter() != null ? conditionType.getTranslateKey(conditionConfig.getParameter()) : ""
                     ));
 
             result.add(component);

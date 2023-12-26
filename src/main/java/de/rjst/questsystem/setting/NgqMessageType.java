@@ -1,4 +1,4 @@
-package de.rjst.questsystem.model.enums;
+package de.rjst.questsystem.setting;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import java.util.Locale;
 
 @Slf4j
 @RequiredArgsConstructor
-public enum MessageType {
+public enum NgqMessageType {
 
     QUEST_MSG_SUCCESS(
             "messages.quests.success",

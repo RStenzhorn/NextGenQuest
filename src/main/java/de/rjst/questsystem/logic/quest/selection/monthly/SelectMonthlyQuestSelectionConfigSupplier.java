@@ -1,6 +1,6 @@
 package de.rjst.questsystem.logic.quest.selection.monthly;
 
-import de.rjst.questsystem.model.enums.Property;
+import de.rjst.questsystem.setting.NgqProperty;
 import de.rjst.questsystem.logic.config.PropertySupplier;
 import de.rjst.questsystem.model.enums.IntervalType;
 import de.rjst.questsystem.database.entity.config.QuestSelectionConfigEntity;
@@ -34,7 +34,7 @@ public class SelectMonthlyQuestSelectionConfigSupplier implements Supplier<Optio
     @Override
     public Optional<QuestSelectionConfigEntity> get() {
         QuestSelectionConfigEntity result = null;
-        final Integer amount = propertySupplier.apply(Property.QUESTS_MONTHLY_AMOUNT, Integer.class);
+        final Integer amount = propertySupplier.apply(NgqProperty.QUESTS_MONTHLY_AMOUNT, Integer.class);
         final Set<Long> ids = newQuestsByIntervalTypeSupplier.apply(amount, intervalType);
 
         if (!ids.isEmpty()) {

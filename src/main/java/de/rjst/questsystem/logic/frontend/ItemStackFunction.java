@@ -1,7 +1,7 @@
 package de.rjst.questsystem.logic.frontend;
 
 import de.rjst.questsystem.model.ItemBuildRequest;
-import de.rjst.questsystem.model.enums.MessageType;
+import de.rjst.questsystem.setting.NgqMessageType;
 import de.rjst.questsystem.util.FrontendUtil;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
@@ -20,7 +20,7 @@ import java.util.function.Function;
 public class ItemStackFunction implements Function<ItemBuildRequest, ItemStack> {
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
     @Qualifier("replacePlaceholderFunction")
     private final BiFunction<String, Map<String, String>, Component> replacePlaceholderFunction;
@@ -31,14 +31,14 @@ public class ItemStackFunction implements Function<ItemBuildRequest, ItemStack> 
         final Locale locale = request.getLocale();
         final Map<String, String> placeholder = request.getPlaceholder();
 
-        final MessageType messageTypeItemName = request.getItemName();
-        if (messageTypeItemName != null) {
-            final String itemNameStr = messageSupplier.apply(messageTypeItemName, locale);
+        final NgqMessageType ngqMessageTypeItemName = request.getItemName();
+        if (ngqMessageTypeItemName != null) {
+            final String itemNameStr = messageSupplier.apply(ngqMessageTypeItemName, locale);
             final Component itemName = replacePlaceholderFunction.apply(itemNameStr, placeholder);
             FrontendUtil.setDisplayName(result, itemName);
         }
 
-        final MessageType itemDescription = request.getDescription();
+        final NgqMessageType itemDescription = request.getDescription();
         if (itemDescription != null) {
             final String descriptionStr = messageSupplier.apply(itemDescription, locale);
             final Component description = replacePlaceholderFunction.apply(descriptionStr, placeholder);

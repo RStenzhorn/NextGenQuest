@@ -4,10 +4,10 @@ import de.rjst.questsystem.database.entity.PlayerEntity;
 import de.rjst.questsystem.database.repository.PlayerRepository;
 import de.rjst.questsystem.model.ItemBuild;
 import de.rjst.questsystem.model.ItemBuildRequest;
-import de.rjst.questsystem.model.enums.Placeholder;
+import de.rjst.questsystem.setting.NgqPlaceholder;
 import de.rjst.questsystem.util.Heads;
-import de.rjst.questsystem.model.enums.MessageType;
-import de.rjst.questsystem.model.enums.QuestPermission;
+import de.rjst.questsystem.setting.NgqMessageType;
+import de.rjst.questsystem.setting.NgqPermission;
 import de.rjst.questsystem.exception.NoPermissionException;
 import de.rjst.questsystem.model.button.ButtonImpl;
 import de.rjst.questsystem.model.gui.CustomGui;
@@ -41,7 +41,7 @@ public class QuestCommandConsumer implements Consumer<Player> {
     private final Consumer<InventoryClickEvent> questConsumer;
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
     @Qualifier("itemStackFunction")
     private final Function<ItemBuildRequest, ItemStack> itemStackFunction;
@@ -53,11 +53,11 @@ public class QuestCommandConsumer implements Consumer<Player> {
 
     @Override
     public void accept(final Player player) {
-        if (ValidatorUtil.isNotPermitted(player, QuestPermission.QUEST_CORE)) {
+        if (ValidatorUtil.isNotPermitted(player, NgqPermission.QUEST_CORE)) {
             throw new NoPermissionException();
         }
         final Locale locale = PaperUtil.getLocale(player);
-        final String baseMessage = messageSupplier.apply(MessageType.INVENTORY_MAIN, locale);
+        final String baseMessage = messageSupplier.apply(NgqMessageType.INVENTORY_MAIN, locale);
         final Component message = PaperUtil.getMessage(baseMessage);
 
         final Optional<PlayerEntity> playerOptional = playerRepository.findById(player.getUniqueId());
@@ -66,7 +66,7 @@ public class QuestCommandConsumer implements Consumer<Player> {
 
             final ItemStack shop = itemStackFunction.apply(getShopRequest(locale));
             final ItemStack info = itemStackFunction.apply(getInfoRequest(locale, Map.of(
-                    Placeholder.CURRENCY, currencyPlaceHolderFunction.apply(playerEntity.getQuestReward())
+                    NgqPlaceholder.CURRENCY, currencyPlaceHolderFunction.apply(playerEntity.getQuestReward())
             )));
             final ItemStack quests = itemStackFunction.apply(getQuestRequest(locale));
 
@@ -84,7 +84,7 @@ public class QuestCommandConsumer implements Consumer<Player> {
                 baseItem(Heads.REWARD.clone())
                 .locale(locale)
                 .placeholder(Map.of())
-                .itemName(MessageType.INVENTORY_MAIN_REWARDS)
+                .itemName(NgqMessageType.INVENTORY_MAIN_REWARDS)
                 .build();
     }
 
@@ -93,7 +93,7 @@ public class QuestCommandConsumer implements Consumer<Player> {
                 baseItem(Heads.INFO.clone())
                 .locale(locale)
                 .placeholder(placeholder)
-                .itemName(MessageType.INVENTORY_MAIN_INFO)
+                .itemName(NgqMessageType.INVENTORY_MAIN_INFO)
                 .build();
     }
 
@@ -102,7 +102,7 @@ public class QuestCommandConsumer implements Consumer<Player> {
                 baseItem(Heads.QUEST.clone())
                 .locale(locale)
                 .placeholder(Map.of())
-                .itemName(MessageType.INVENTORY_MAIN_QUESTS)
+                .itemName(NgqMessageType.INVENTORY_MAIN_QUESTS)
                 .build();
     }
 

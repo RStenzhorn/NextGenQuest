@@ -1,6 +1,6 @@
 package de.rjst.questsystem.config;
 
-import de.rjst.questsystem.QuestSystem;
+import de.rjst.questsystem.NextGenQuest;
 import de.rjst.questsystem.config.bean.PaperPluginCommand;
 import de.rjst.questsystem.config.bean.PluginCommand;
 import de.rjst.questsystem.config.bean.PluginListener;
@@ -28,7 +28,7 @@ public class PaperConfig {
 
     @Bean
     public JavaPlugin plugin() {
-        return JavaPlugin.getPlugin(QuestSystem.class);
+        return JavaPlugin.getPlugin(NextGenQuest.class);
     }
 
     @Bean

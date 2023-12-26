@@ -1,6 +1,6 @@
 package de.rjst.questsystem.util;
 
-import de.rjst.questsystem.model.enums.QuestPermission;
+import de.rjst.questsystem.setting.NgqPermission;
 import lombok.experimental.UtilityClass;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class ValidatorUtil {
 
-    public boolean isNotPermitted(final @NotNull Permissible sender, final @NotNull QuestPermission questPermission) {
-        final Permission paperPermission = questPermission.getPermission();
+    public boolean isNotPermitted(final @NotNull Permissible sender, final @NotNull NgqPermission ngqPermission) {
+        final Permission paperPermission = ngqPermission.getPermission();
         return !sender.hasPermission(paperPermission);
     }
 

@@ -1,11 +1,11 @@
-package de.rjst.questsystem.model.enums;
+package de.rjst.questsystem.setting;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public enum Property {
+public enum NgqProperty {
 
     CURRENCY_SINGULAR("currency.singular", "Coin"),
     CURRENCY_PLURAL("currency.plural", "Coins"),

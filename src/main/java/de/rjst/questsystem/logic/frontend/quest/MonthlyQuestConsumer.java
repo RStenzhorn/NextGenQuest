@@ -4,7 +4,7 @@ import de.rjst.questsystem.database.entity.QuestEntity;
 import de.rjst.questsystem.model.button.Button;
 import de.rjst.questsystem.model.button.ButtonImpl;
 import de.rjst.questsystem.model.enums.IntervalType;
-import de.rjst.questsystem.model.enums.MessageType;
+import de.rjst.questsystem.setting.NgqMessageType;
 import de.rjst.questsystem.model.gui.PageableGui;
 import de.rjst.questsystem.model.gui.PageableGuiImpl;
 import de.rjst.questsystem.util.PaperUtil;
@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 public class MonthlyQuestConsumer implements Consumer<InventoryClickEvent> {
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
     @Qualifier("questsByPlayerIntervalSupplier")
     private final BiFunction<UUID, String, List<QuestEntity>> questsByUuidIntervalTypeSupplier;
@@ -41,7 +41,7 @@ public class MonthlyQuestConsumer implements Consumer<InventoryClickEvent> {
             final Locale locale = player.locale();
             final UUID uuid = player.getUniqueId();
             final List<QuestEntity> quests = questsByUuidIntervalTypeSupplier.apply(uuid, IntervalType.MONTHLY.name());
-            final String inventoryName = messageSupplier.apply(MessageType.INVENTORY_MONTHLY_QUESTS, locale);
+            final String inventoryName = messageSupplier.apply(NgqMessageType.INVENTORY_MONTHLY_QUESTS, locale);
 
             final PageableGui pageableGui = new PageableGuiImpl(PaperUtil.getMessage(inventoryName), new ButtonImpl());
             for (final QuestEntity quest : quests) {

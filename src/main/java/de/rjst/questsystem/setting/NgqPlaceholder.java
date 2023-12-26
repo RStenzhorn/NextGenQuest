@@ -1,9 +1,9 @@
-package de.rjst.questsystem.model.enums;
+package de.rjst.questsystem.setting;
 
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class Placeholder {
+public class NgqPlaceholder {
 
     public final String ITEM_NAME = "NAME";
     public final String PRICE = "PRICE";

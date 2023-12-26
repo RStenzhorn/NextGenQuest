@@ -1,6 +1,6 @@
 package de.rjst.questsystem.config;
 
-import de.rjst.questsystem.QuestSystem;
+import de.rjst.questsystem.NextGenQuest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.milkbowl.vault.economy.Economy;
@@ -27,7 +27,7 @@ public class ExternalLibConfig {
             log.info("Economy-Plugin {} injected", result.getName());
         } else {
             final PluginManager pluginManager = server.getPluginManager();
-            pluginManager.disablePlugin(QuestSystem.getInstance());
+            pluginManager.disablePlugin(NextGenQuest.getInstance());
             log.error("Economy not found -> Disable Plugin");
         }
         return result;

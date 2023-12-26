@@ -2,7 +2,7 @@ package de.rjst.questsystem.logic.frontend.shop;
 
 import de.rjst.questsystem.database.entity.RewardShopItemEntity;
 import de.rjst.questsystem.model.button.ButtonImpl;
-import de.rjst.questsystem.model.enums.MessageType;
+import de.rjst.questsystem.setting.NgqMessageType;
 import de.rjst.questsystem.model.gui.PageableGui;
 import de.rjst.questsystem.model.gui.PageableGuiImpl;
 import de.rjst.questsystem.util.PaperUtil;
@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 public class ShopConsumer implements Consumer<InventoryClickEvent> {
 
     @Qualifier("messageSupplier")
-    private final BiFunction<MessageType, Locale, String> messageSupplier;
+    private final BiFunction<NgqMessageType, Locale, String> messageSupplier;
 
     @Qualifier("rewardShopItemsSupplier")
     private final Supplier<List<RewardShopItemEntity>> rewardShopItemsSupplier;
@@ -44,7 +44,7 @@ public class ShopConsumer implements Consumer<InventoryClickEvent> {
         if (event.getWhoClicked() instanceof final Player player) {
             final Locale locale = player.locale();
 
-            final String invName = messageSupplier.apply(MessageType.INVENTORY_REWARD, locale);
+            final String invName = messageSupplier.apply(NgqMessageType.INVENTORY_REWARD, locale);
 
             final PageableGui pageableGui = new PageableGuiImpl(PaperUtil.getMessage(invName), new ButtonImpl());
             final List<RewardShopItemEntity> rewardShopItems = rewardShopItemsSupplier.get();
