@@ -1,0 +1,59 @@
+= QuestSystem
+Vorname Nachname <email@example.com>
+v1.0, {docdate}
+:doctype: book
+:toc: left
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
+:imagesdir: img/
+:table-caption!:
+:listing-caption: Listing
+:source-highlighter: pygments
+
+toc::[Inhaltsverzeichnis]
+
+== Überblick
+
+
+
+== Installation
+
+Hier erklärst du, wie man das Plugin installiert.
+
+=== Voraussetzungen
+
+Liste hier alle Voraussetzungen auf, die erfüllt sein müssen, bevor das Plugin installiert werden kann.
+
+=== Installationsschritte
+
+Beschreibe die Schritte, die notwendig sind, um das Plugin zu installieren.
+
+== Verwendung
+
+Hier erklärst du, wie man das Plugin verwendet.
+
+=== Datenbank
+
+image::/img/db.png[]
+
+=== Befehle
+
+Liste alle verfügbaren Befehle auf und erkläre ihre Verwendung.
+
+=== Konfiguration
+
+Erkläre, wie man die Konfiguration des Plugins anpassen kann.
+
+== Funktionen
+
+Hier beschreibst du ausführlich die Funktionen und Möglichkeiten, die dein Plugin bietet.
+
+== FAQ
+
+Beantworte häufig gestellte Fragen zu deinem Plugin.
+
+== Lizenz
+
+Gib an, unter welcher Lizenz dein Plugin veröffentlicht ist.
+
