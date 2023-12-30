@@ -5,6 +5,7 @@ import de.rjst.questsystem.model.ItemBuild;
 import de.rjst.questsystem.model.ItemBuildRequest;
 import de.rjst.questsystem.setting.NgqMessageType;
 import de.rjst.questsystem.setting.NgqPlaceholder;
+import de.rjst.questsystem.util.ItemStackParser;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.inventory.ItemStack;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,11 +27,9 @@ public class RewardShopItemMapper implements BiFunction<Locale, RewardShopItemEn
     @Qualifier("currencyPlaceHolderFunction")
     private final Function<BigInteger, String> currencyPlaceHolderFunction;
 
-    private final Function<String, ItemStack> itemStackMapper;
-
     @Override
     public ItemStack apply(final Locale locale, final RewardShopItemEntity entity) {
-        ItemStack result = itemStackMapper.apply(entity.getItemStack());
+        ItemStack result = ItemStackParser.convertItemStack(entity.getItemStack());
 
         final ItemBuildRequest request = getItemBuildRequest(locale, entity, result);
         result = itemStackFunction.apply(request);

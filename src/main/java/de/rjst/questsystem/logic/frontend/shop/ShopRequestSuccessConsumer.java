@@ -1,8 +1,9 @@
 package de.rjst.questsystem.logic.frontend.shop;
 
 import de.rjst.questsystem.database.entity.RewardShopItemEntity;
-import de.rjst.questsystem.model.enums.RewardType;
 import de.rjst.questsystem.setting.NgqMessageType;
+import de.rjst.questsystem.model.enums.RewardType;
+import de.rjst.questsystem.util.ItemStackParser;
 import de.rjst.questsystem.util.PaperUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,6 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -38,8 +38,6 @@ public class ShopRequestSuccessConsumer implements BiConsumer<Player, RewardShop
 
     private final ObjectFactory<Economy> economyObjectFactory;
 
-    private final Function<String, ItemStack> itemStackMapper;
-
 
     @Override
     public void accept(final @NotNull Player player, final @NotNull RewardShopItemEntity entity) {
@@ -47,7 +45,7 @@ public class ShopRequestSuccessConsumer implements BiConsumer<Player, RewardShop
         final RewardType rewardType = RewardType.valueOf(entity.getType());
         if (removeQuestRewardFunction.apply(player.getUniqueId(), entity.getPrice())) {
             if (rewardType == RewardType.ITEM) {
-                final ItemStack itemStack = itemStackMapper.apply(entity.getItemStack());
+                final ItemStack itemStack = ItemStackParser.convertItemStack(entity.getItemStack());
                 final PlayerInventory inventory = player.getInventory();
                 inventory.addItem(itemStack);
             } else if (rewardType == RewardType.MONEY) {
