@@ -33,10 +33,10 @@ public class QuestEntity {
     @Column(name = "success", nullable = false)
     private Boolean success;
 
-    @OneToMany(mappedBy = "quest", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "quest", orphanRemoval = true)
     private List<QuestConditionEntity> conditions;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private QuestConfigEntity questConfig;
 
     @ManyToOne

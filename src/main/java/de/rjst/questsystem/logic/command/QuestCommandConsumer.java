@@ -52,7 +52,7 @@ public class QuestCommandConsumer implements Consumer<Player> {
     private final PlayerRepository playerRepository;
 
     @Override
-    public void accept(final Player player) {
+    public final void accept(final Player player) {
         if (ValidatorUtil.isNotPermitted(player, NgqPermission.QUEST_CORE)) {
             throw new NoPermissionException();
         }

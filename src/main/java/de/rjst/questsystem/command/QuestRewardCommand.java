@@ -25,7 +25,7 @@ public class QuestRewardCommand implements CommandExecutor {
     private final RewardShopItemEntityRepository rewardShopItemEntityRepository;
 
     @Override
-    public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command, @NotNull final String label, @NotNull final String[] args) {
+    public final boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command, @NotNull final String label, @NotNull final String[] args) {
 
         if (sender instanceof final Player player) {
             final PlayerInventory inventory = player.getInventory();

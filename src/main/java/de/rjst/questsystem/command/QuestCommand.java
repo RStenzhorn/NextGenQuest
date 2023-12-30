@@ -23,7 +23,7 @@ public class QuestCommand implements CommandExecutor {
     private final Consumer<Player> questCommandConsumer;
 
     @Override
-    public boolean onCommand(@NotNull final CommandSender sender, final @NotNull Command command, @NotNull final String label, @NotNull final String[] args) {
+    public final boolean onCommand(@NotNull final CommandSender sender, final @NotNull Command command, @NotNull final String label, @NotNull final String[] args) {
         final Optional<Player> player = PaperUtil.getPlayer(sender);
         player.ifPresent(questCommandConsumer);
         return true;
