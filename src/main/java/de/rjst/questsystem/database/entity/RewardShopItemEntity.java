@@ -28,7 +28,7 @@ public class RewardShopItemEntity {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "itemStack", nullable = false, length = 8192)
+    @Column(name = "itemStack", nullable = false, columnDefinition = "TEXT")
     private String itemStack;
 
     @Column(name = "command", length = 512)
